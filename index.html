@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="secure-csrf-token" />
+    <!-- Added CSRF token meta tag -->
+    <title>IQnition - Interactive Quiz Platform</title>
+    <link rel="shortcut icon" href="/quiz.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.5/purify.min.js"></script>
+  </head>
+  <body>
+    <div class="quiz-container" role="main">
+      <header class="quiz-header">
+        <div class="header-content">
+          <div class="header-left">
+            <h1 class="app-title">IQnition</h1>
+            <span
+              class="question-counter"
+              id="questionCounter"
+              aria-live="polite"
+              >Ready to Start</span
+            >
+          </div>
+          <div class="header-right">
+            <div class="timer-display" id="timerDisplay" aria-label="Timer">
+              <span class="timer-icon" aria-hidden="true">⏱️</span>
+              <div class="timer-info">
+                <span class="timer-label">Time</span>
+                <span class="timer-value" id="timerValue" aria-live="polite"
+                  >--:--</span
+                >
+              </div>
+            </div>
+            <button
+              class="theme-toggle"
+              id="themeToggle"
+              aria-label="Toggle between light and dark theme"
+            >
+              🌙
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <section
+        class="screen welcome-screen active"
+        id="welcomeScreen"
+        aria-labelledby="welcomeHeader"
+      >
+        <div class="welcome-content">
+          <div class="welcome-header">
+            <h2 id="welcomeHeader">Welcome to IQnition</h2>
+            <p>Interactive quiz platform for web development mastery</p>
+          </div>
+          <div class="setup-section">
+            <div class="setup-grid">
+              <div class="setup-item">
+                <label for="examDuration">Duration</label>
+                <select
+                  id="examDuration"
+                  class="setup-input"
+                  aria-describedby="examDurationDesc"
+                >
+                  <option value="30">30 Min</option>
+                  <option value="45" selected>45 Min</option>
+                  <option value="60">60 Min</option>
+                  <option value="90">90 Min</option>
+                </select>
+                <span id="examDurationDesc" class="sr-only"
+                  >Select exam duration in minutes</span
+                >
+              </div>
+              <div class="setup-item">
+                <label for="questionCount">Questions</label>
+                <select
+                  id="questionCount"
+                  class="setup-input"
+                  aria-describedby="questionCountDesc"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="50" selected>50</option>
+                </select>
+                <span id="questionCountDesc" class="sr-only"
+                  >Select number of questions</span
+                >
+              </div>
+            </div>
+            <div class="setup-item">
+              <label for="studentName">Your Name (Optional)</label>
+              <input
+                type="text"
+                id="studentName"
+                class="setup-input"
+                placeholder="Enter your name"
+                aria-describedby="studentNameDesc"
+              />
+              <span id="studentNameDesc" class="sr-only"
+                >Enter your name for personalized results</span
+              >
+            </div>
+          </div>
+          <div class="instructions-section">
+            <div class="instruction-item">
+              <span class="instruction-icon" aria-hidden="true">🧭</span>
+              <span>Navigate freely between questions</span>
+            </div>
+            <div class="instruction-item">
+              <span class="instruction-icon" aria-hidden="true">💾</span>
+              <span>Answers auto-saved</span>
+            </div>
+            <div class="instruction-item">
+              <span class="instruction-icon" aria-hidden="true">🔖</span>
+              <span>Bookmark questions</span>
+            </div>
+            <div class="instruction-item">
+              <span class="instruction-icon" aria-hidden="true">⏰</span>
+              <span>Submit before timeout</span>
+            </div>
+          </div>
+          <button
+            class="start-exam-btn"
+            id="startExamBtn"
+            aria-label="Start the exam"
+          >
+            Start Exam
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="screen quiz-screen"
+        id="quizScreen"
+        aria-labelledby="questionNumber"
+      >
+        <button
+          class="mobile-nav-btn"
+          id="mobileNavBtn"
+          aria-label="Open question navigation"
+        >
+          <span class="nav-icon" aria-hidden="true">📋</span>
+          <span class="nav-text">Questions</span>
+        </button>
+        <div class="quiz-layout">
+          <nav
+            class="question-sidebar"
+            id="questionSidebar"
+            aria-label="Question navigation"
+          >
+            <div class="sidebar-header">
+              <h3>Questions</h3>
+              <button
+                class="close-sidebar"
+                id="closeSidebar"
+                aria-label="Close sidebar"
+              >
+                ✕
+              </button>
+            </div>
+            <div
+              class="question-grid"
+              id="questionGrid"
+              role="grid"
+              aria-label="Question selection grid"
+            ></div>
+            <div class="sidebar-legend">
+              <div class="legend-item">
+                <span class="legend-dot answered" aria-hidden="true"></span>
+                <span>Answered</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot current" aria-hidden="true"></span>
+                <span>Current</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot unanswered" aria-hidden="true"></span>
+                <span>Unanswered</span>
+              </div>
+            </div>
+          </nav>
+          <div class="quiz-main">
+            <div class="question-section">
+              <div class="question-header">
+                <span
+                  class="question-number"
+                  id="questionNumber"
+                  aria-live="polite"
+                  >Question 1</span
+                >
+                <div class="question-actions">
+                  <button
+                    class="action-btn bookmark-btn"
+                    id="bookmarkBtn"
+                    aria-label="Bookmark current question"
+                  >
+                    🔖
+                  </button>
+                  <button
+                    class="action-btn clear-btn"
+                    id="clearBtn"
+                    aria-label="Clear answer for current question"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+              <div
+                class="question-text"
+                id="questionText"
+                role="region"
+                aria-live="polite"
+              >
+                Loading question...
+              </div>
+              <div
+                class="options-container"
+                id="optionsContainer"
+                role="radiogroup"
+                aria-labelledby="questionNumber"
+              ></div>
+            </div>
+            <div class="bottom-navigation">
+              <button
+                class="nav-btn secondary"
+                id="prevBtn"
+                aria-label="Previous question"
+              >
+                ← 
+              </button>
+              <button
+                class="nav-btn review"
+                id="reviewBtn"
+                aria-label="Review answers"
+              >
+                Review
+              </button>
+              <button
+                class="nav-btn primary"
+                id="nextBtn"
+                aria-label="Next question"
+              >
+                 →
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sidebar-overlay"
+          id="sidebarOverlay"
+          aria-hidden="true"
+        ></div>
+      </section>
+
+      <section
+        class="screen review-screen"
+        id="reviewScreen"
+        aria-labelledby="reviewHeader"
+      >
+        <div class="review-content">
+          <div class="review-header">
+            <h2 id="reviewHeader">Review Your Answers</h2>
+            <p>Check your responses before submission</p>
+          </div>
+          <div class="review-stats">
+            <div class="stat-card">
+              <div class="stat-value" id="answeredCount" aria-live="polite">
+                0
+              </div>
+              <div class="stat-label">Answered</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="unansweredCount" aria-live="polite">
+                0
+              </div>
+              <div class="stat-label">Unanswered</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="timeRemaining" aria-live="polite">
+                45:00
+              </div>
+              <div class="stat-label">Time Left</div>
+            </div>
+          </div>
+          <div
+            class="review-grid"
+            id="reviewGrid"
+            role="grid"
+            aria-label="Review question grid"
+          ></div>
+          <div class="review-actions">
+            <button
+              class="action-btn secondary"
+              id="backToQuizBtn"
+              aria-label="Back to quiz"
+            >
+              ← Back to Quiz
+            </button>
+            <button
+              class="action-btn danger"
+              id="submitExamBtn"
+              aria-label="Submit exam"
+            >
+              Submit Exam
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="screen results-screen"
+        id="resultsScreen"
+        aria-labelledby="resultsTitle"
+      >
+        <div class="results-content">
+          <div class="results-header">
+            <div class="score-circle">
+              <div class="score-value" id="scoreValue" aria-live="polite">
+                0%
+              </div>
+            </div>
+            <div class="result-info">
+              <h2 id="resultsTitle">Exam Completed!</h2>
+              <p id="resultsMessage">Congratulations on completing the exam</p>
+            </div>
+          </div>
+          <div class="results-summary">
+            <div class="summary-card correct">
+              <div
+                class="summary-number"
+                id="correctAnswers"
+                aria-live="polite"
+              >
+                0
+              </div>
+              <div class="summary-label">Correct</div>
+            </div>
+            <div class="summary-card incorrect">
+              <div
+                class="summary-number"
+                id="incorrectAnswers"
+                aria-live="polite"
+              >
+                0
+              </div>
+              <div class="summary-label">Incorrect</div>
+            </div>
+            <div class="summary-card skipped">
+              <div
+                class="summary-number"
+                id="skippedAnswers"
+                aria-live="polite"
+              >
+                0
+              </div>
+              <div class="summary-label">Skipped</div>
+            </div>
+            <div class="summary-card time">
+              <div class="summary-number" id="totalTime" aria-live="polite">
+                0m
+              </div>
+              <div class="summary-label">Time Used</div>
+            </div>
+          </div>
+          <div class="results-actions">
+            <button
+              class="action-btn primary"
+              id="retakeExamBtn"
+              aria-label="Take another exam"
+            >
+              Take Another Exam
+            </button>
+            <button
+              class="action-btn secondary"
+              id="downloadResultsBtn"
+              aria-label="Download results"
+            >
+              Download Results
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div
+        class="notification-container"
+        id="notificationContainer"
+        aria-live="polite"
+      ></div>
+
+      <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+        <div class="modal" role="dialog" aria-labelledby="modalTitle">
+          <div class="modal-header">
+            <h3 id="modalTitle">Confirm Action</h3>
+          </div>
+          <div class="modal-body">
+            <p id="modalMessage">Are you sure you want to proceed?</p>
+          </div>
+          <div class="modal-actions">
+            <button
+              class="modal-btn secondary"
+              id="modalCancel"
+              aria-label="Cancel action"
+            >
+              Cancel
+            </button>
+            <button
+              class="modal-btn primary"
+              id="modalConfirm"
+              aria-label="Confirm action"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
