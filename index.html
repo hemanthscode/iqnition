@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
+=======
+
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IQnition - Interactive Quiz Platform</title>
+<<<<<<< HEAD
   <!-- Custom Styles -->
   <link rel="stylesheet" href="assets/css/output.css">
+=======
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
   <!-- SEO Meta Tags -->
   <meta name="description"
     content="IQnition is a dynamic and responsive interactive quiz built with HTML, CSS, and JavaScript. Test your web development knowledge with multiple-choice questions and track your progress.">
   <meta name="keywords" content="quiz, interactive, web development, javascript, html, css, education, learning">
   <meta name="author" content="IQnition Team">
   <meta name="robots" content="index, follow">
+<<<<<<< HEAD
+=======
+
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="IQnition - Interactive Quiz Platform">
   <meta property="og:description" content="Test your web development knowledge with our interactive quiz platform">
   <meta property="og:type" content="website">
+<<<<<<< HEAD
   <meta property="og:image" href="assets/icons/favicon.svg">
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 </head>
+=======
+  <meta property="og:image"
+    content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
 <body class="bg-gradient-to-br from-purple-50 to-indigo-100">
   <!-- Reusable Modal Component -->
   <div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
@@ -56,7 +82,11 @@
           <p id="quizTopic" class="text-sm text-purple-600 mt-2"></p>
         </div>
         <form
+<<<<<<< HEAD
           onsubmit="event.preventDefault(); if(window.validateCsrfToken && !window.validateCsrfToken()) { window.showModal && window.showModal('Invalid CSRF token', null, 'Security Error'); return; } if(window.startQuiz) { window.startQuiz(); } else { alert('Application still loading, please wait...'); }"
+=======
+          onsubmit="event.preventDefault(); validateCsrfToken() ? startQuiz() : showModal('Invalid CSRF token', null, 'Security Error');"
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
           class="space-y-6">
           <input type="hidden" name="csrfToken" id="csrfToken">
           <div>
@@ -148,7 +178,11 @@
       </div>
       <footer class="bg-white border-t px-6 py-4" role="contentinfo">
         <div class="flex items-center justify-between max-w-4xl mx-auto">
+<<<<<<< HEAD
           <button id="prevBtn" onclick="window.previousQuestion && window.previousQuestion()"
+=======
+          <button id="prevBtn" onclick="previousQuestion()"
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
             class="flex items-center space-x-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-200 disabled:opacity-50 font-medium"
             disabled aria-label="Go to previous question">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -157,7 +191,11 @@
             <span>Previous</span>
           </button>
           <div class="flex items-center space-x-4">
+<<<<<<< HEAD
             <button onclick="window.submitQuiz && window.submitQuiz()"
+=======
+            <button onclick="submitQuiz()"
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
               class="flex items-center space-x-2 px-6 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-all duration-200 font-medium"
               aria-label="Submit quiz">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -166,7 +204,11 @@
               </svg>
               <span>Submit Quiz</span>
             </button>
+<<<<<<< HEAD
             <button id="nextBtn" onclick="window.nextQuestion && window.nextQuestion()"
+=======
+            <button id="nextBtn" onclick="nextQuestion()"
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
               class="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all duration-200 font-medium"
               aria-label="Go to next question">
               <span>Next</span>
@@ -179,7 +221,11 @@
       </footer>
       <button id="mobileNavToggle"
         class="lg:hidden fixed bottom-6 right-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white p-4 rounded-full shadow-xl z-30 hover:shadow-2xl transition-all duration-200 no-print"
+<<<<<<< HEAD
         onclick="window.toggleMobileNav && window.toggleMobileNav()" aria-label="Toggle mobile navigation">
+=======
+        onclick="toggleMobileNav()" aria-label="Toggle mobile navigation">
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
@@ -190,7 +236,11 @@
           <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white p-4">
             <div class="flex justify-between items-center mb-3">
               <h3 class="font-semibold">Questions</h3>
+<<<<<<< HEAD
               <button onclick="window.toggleMobileNav && window.toggleMobileNav()" class="text-white hover:text-gray-200 transition-colors"
+=======
+              <button onclick="toggleMobileNav()" class="text-white hover:text-gray-200 transition-colors"
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
                 aria-label="Close mobile navigation">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -275,10 +325,17 @@
           </section>
         </div>
         <div class="flex flex-col sm:flex-row gap-4 mt-8">
+<<<<<<< HEAD
           <button onclick="window.restartQuiz && window.restartQuiz()"
             class="flex-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:from-purple-600 hover:to-indigo-700 transition-colors"
             aria-label="Start a new quiz">Take Quiz Again</button>
           <button onclick="window.downloadResults && window.downloadResults()"
+=======
+          <button onclick="restartQuiz()"
+            class="flex-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:from-purple-600 hover:to-indigo-700 transition-colors"
+            aria-label="Start a new quiz">Take Quiz Again</button>
+          <button onclick="downloadResults()"
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
             class="flex-1 bg-gray-100 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-200 transition-colors"
             aria-label="Download quiz results">Download Results</button>
         </div>
@@ -286,8 +343,23 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- Script Files - FIXED ORDER -->
   <script src="assets/js/questions.js"></script>
   <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
+=======
+  <!-- Script Files -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('csrfToken').value = initializeCsrfToken();
+  </script>
+</body>
+
+</html>
+>>>>>>> ebe87c01c902d8107b2350333e7387a839f69314
