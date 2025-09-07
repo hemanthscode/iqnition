@@ -85,7 +85,7 @@ const QUESTION_BANK = [
     correct: 1,
   },
   {
-    question: "Who won the Men’s Singles title at the Australian Open 2025?",
+    question: "Who won the Men's Singles title at the Australian Open 2025?",
     options: [
       "Jannik Sinner",
       "Alexander Zverev",
@@ -105,7 +105,7 @@ const QUESTION_BANK = [
     correct: 2,
   },
   {
-    question: "What is the name of the traditional beverage from Assam’s Bodo community that received a GI tag?",
+    question: "What is the name of the traditional beverage from Assam's Bodo community that received a GI tag?",
     options: ["Bodo Tonba", "Bodo Apor", "Bodo Jou Gwran", "Bodo Aronai"],
     correct: 2,
   },
@@ -143,11 +143,14 @@ const QUESTION_BANK = [
 
 const QUIZ_CONFIG = {
   TOTAL_QUESTIONS: QUESTION_BANK.length,
-  TIME_LIMIT: QUESTION_BANK.length * 60, // 1 minute per question
+  TIME_LIMIT: QUESTION_BANK.length * 60,
   QUESTIONS_PER_ROW_DESKTOP: 5,
   QUESTIONS_PER_ROW_MOBILE: 3,
-  PASSING_SCORE: 60, // Percentage
+  PASSING_SCORE: 60,
   APP_NAME: "IQnition",
   APP_DESCRIPTION: "Dynamic and responsive interactive quiz platform",
   TOPIC: "UPSC General Knowledge",
 };
+
+window.QUESTION_BANK = QUESTION_BANK;
+window.QUIZ_CONFIG = QUIZ_CONFIG;

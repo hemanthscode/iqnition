@@ -1,0 +1,35 @@
+{
+  "name": "iqnition-quiz",
+  "version": "1.0.0",
+  "description": "Interactive Quiz Platform",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "install-deps": "npm install",
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/output.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/output.css --watch",
+    "start": "npm run build:css && npx http-server . -p 3000 -c-1 --cors",
+    "dev": "concurrently \"npm run watch:css\" \"npx http-server . -p 3000 -c-1 --cors\"",
+    "build": "npm run build:css"
+  },
+  "dependencies": {
+    "chart.js": "^3.9.1",
+    "jspdf": "^2.5.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.31",
+    "autoprefixer": "^10.4.16",
+    "http-server": "^14.1.1",
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "quiz",
+    "interactive",
+    "education",
+    "javascript",
+    "responsive"
+  ],
+  "author": "IQnition Team",
+  "license": "MIT"
+}
